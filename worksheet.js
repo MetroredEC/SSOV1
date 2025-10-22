@@ -46,7 +46,7 @@
     const id = select.value;
     const container = document.getElementById('worksheet-container');
     if (!id) {
-      container.style.display = 'none';
+      container.classList.add('is-hidden');
       currentQuoteId = null;
       currentExams = [];
       currentExamQuantities = {};
@@ -69,7 +69,7 @@
         currentExamQuantities[ex.name] = ex.quantity;
       }
     });
-    container.style.display = '';
+    container.classList.remove('is-hidden');
     buildWorksheetHeader();
     loadWorksheetRows(quote.worksheet || []);
   }

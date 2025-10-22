@@ -6,35 +6,70 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="agreements">
-  <header>
-    <div class="header-left">
-      <img src="img/logo.png" alt="Metrored logo" class="logo">
-      <h1>📝 Generar convenios</h1>
-    </div>
-    <nav>
-      <a href="dashboard.html">📊 Tablero</a>
-      <a href="quoting.html">💼 Cotizador</a>
-      <a href="crm.html">👥 CRM</a>
-      <a href="pipeline.html">🧭 Pipeline</a>
-      <a href="worksheet.html">📋 Hoja de trabajo</a>
-      <a href="agreements.html">📄 Convenios</a>
-      <a href="admin.html">⚙️ Admin</a>
-      <a href="logs.html">📜 Logs</a>
-      <a href="index.html" data-logout>🚪 Salir</a>
-    </nav>
-  </header>
-  <main class="container">
-    <h2>📁 Seleccione cotización</h2>
-    <select id="agreement-quote-select"></select>
-    <section id="agreement-section" style="display:none; margin-top:20px;">
-      <h3>📄 Convenio generado</h3>
-      <textarea id="agreement-output" rows="12" readonly></textarea>
-      <div class="table-controls">
-        <button type="button" id="copyAgreementBtn" class="btn-primary">Copiar al portapapeles</button>
-        <button type="button" id="downloadAgreementBtn" class="btn-primary">Descargar</button>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <img src="img/logo.png" alt="Metrored">
+        <div>
+          <p class="sidebar__title">Metrored SSO</p>
+          <p class="sidebar__subtitle">CRM de ventas</p>
+        </div>
       </div>
-    </section>
-  </main>
+      <nav class="sidebar__nav" aria-label="Navegación principal">
+        <a href="dashboard.html" class="sidebar__nav-link">Tablero</a>
+        <a href="crm.html" class="sidebar__nav-link">CRM</a>
+        <a href="pipeline.html" class="sidebar__nav-link">Pipeline</a>
+        <a href="quoting.html" class="sidebar__nav-link">Cotizador</a>
+        <a href="agreements.html" class="sidebar__nav-link">Convenios</a>
+        <a href="worksheet.html" class="sidebar__nav-link">Hoja de trabajo</a>
+        <a href="logs.html" class="sidebar__nav-link">Logs de actividad</a>
+        <a href="admin.html" class="sidebar__nav-link">Administración</a>
+      </nav>
+      <div class="sidebar__footer">
+        <button type="button" class="sidebar__logout" data-logout>Cerrar sesión</button>
+      </div>
+    </aside>
+    <div class="app-content">
+      <header class="topbar">
+        <div class="topbar__titles">
+          <p class="topbar__eyebrow">Documentación comercial</p>
+          <h1 class="page-title">Generación de convenios</h1>
+          <p class="page-subtitle">Automatice la redacción del convenio en base a cotizaciones aprobadas y plantillas corporativas.</p>
+        </div>
+        <div class="topbar__meta">
+          <span class="user-info" id="user-info" data-user-info></span>
+          <span class="topbar__meta-hint">Sólo disponible para roles comerciales y administradores.</span>
+        </div>
+      </header>
+      <main class="page-content">
+        <section class="page-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Seleccionar cotización</h2>
+              <p class="section-subtitle">Elija una cotización aprobada para generar el documento contractual.</p>
+            </div>
+          </div>
+          <div>
+            <label for="agreement-quote-select">Cotización aprobada</label>
+            <select id="agreement-quote-select"></select>
+          </div>
+        </section>
+        <section class="page-section is-hidden" id="agreement-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Convenio generado</h2>
+              <p class="section-subtitle">Revise, copie o descargue el convenio para compartirlo con el cliente.</p>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-secondary" id="copyAgreementBtn">Copiar al portapapeles</button>
+              <button type="button" class="btn-primary" id="downloadAgreementBtn">Descargar</button>
+            </div>
+          </div>
+          <textarea id="agreement-output" rows="12"></textarea>
+        </section>
+      </main>
+    </div>
+  </div>
   <script src="tariff.js"></script>
   <script src="data.js"></script>
   <script src="util.js"></script>

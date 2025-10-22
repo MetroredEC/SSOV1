@@ -2,44 +2,73 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>SSO CRM – Registros de cotizaciones</title>
+  <title>SSO CRM – Logs</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="logs">
-  <header>
-    <div class="header-left">
-      <img src="img/logo.png" alt="Metrored logo" class="logo">
-      <h1>📜 Registros de cotizaciones</h1>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <img src="img/logo.png" alt="Metrored">
+        <div>
+          <p class="sidebar__title">Metrored SSO</p>
+          <p class="sidebar__subtitle">CRM de ventas</p>
+        </div>
+      </div>
+      <nav class="sidebar__nav" aria-label="Navegación principal">
+        <a href="dashboard.html" class="sidebar__nav-link">Tablero</a>
+        <a href="crm.html" class="sidebar__nav-link">CRM</a>
+        <a href="pipeline.html" class="sidebar__nav-link">Pipeline</a>
+        <a href="quoting.html" class="sidebar__nav-link">Cotizador</a>
+        <a href="agreements.html" class="sidebar__nav-link">Convenios</a>
+        <a href="worksheet.html" class="sidebar__nav-link">Hoja de trabajo</a>
+        <a href="logs.html" class="sidebar__nav-link">Logs de actividad</a>
+        <a href="admin.html" class="sidebar__nav-link">Administración</a>
+      </nav>
+      <div class="sidebar__footer">
+        <button type="button" class="sidebar__logout" data-logout>Cerrar sesión</button>
+      </div>
+    </aside>
+    <div class="app-content">
+      <header class="topbar">
+        <div class="topbar__titles">
+          <p class="topbar__eyebrow">Gobernanza comercial</p>
+          <h1 class="page-title">Bitácora de cotizaciones</h1>
+          <p class="page-subtitle">Audite las acciones realizadas sobre cotizaciones y acuerdos para asegurar trazabilidad.</p>
+        </div>
+        <div class="topbar__meta">
+          <span class="user-info" id="user-info" data-user-info></span>
+          <span class="topbar__meta-hint">Disponible para áreas de control y administración.</span>
+        </div>
+      </header>
+      <main class="page-content">
+        <section class="page-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Historial de acciones</h2>
+              <p class="section-subtitle">Cada registro incluye usuario, acción, cotización y detalle de márgenes.</p>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Usuario</th>
+                  <th>Acción</th>
+                  <th>Cotización</th>
+                  <th>Empresa</th>
+                  <th>Margen</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="logs-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
     </div>
-    <nav>
-      <a href="dashboard.html">📊 Tablero</a>
-      <a href="quoting.html">💼 Cotizador</a>
-      <a href="crm.html">👥 CRM</a>
-      <a href="pipeline.html">🧭 Pipeline</a>
-      <a href="worksheet.html">📋 Hoja de trabajo</a>
-      <a href="agreements.html">📄 Convenios</a>
-      <a href="admin.html">⚙️ Admin</a>
-      <a href="logs.html">📜 Logs</a>
-      <a href="index.html" data-logout>🚪 Salir</a>
-    </nav>
-  </header>
-  <main class="container">
-    <h2>Historial de cotizaciones</h2>
-    <table id="logs-table">
-      <thead>
-        <tr>
-          <th>Fecha y hora</th>
-          <th>Usuario</th>
-          <th>Acción</th>
-          <th>ID Cotización</th>
-          <th>Empresa</th>
-          <th>Margen (%)</th>
-          <th>Total ($)</th>
-        </tr>
-      </thead>
-      <tbody id="logs-body"></tbody>
-    </table>
-  </main>
+  </div>
   <script src="tariff.js"></script>
   <script src="data.js"></script>
   <script src="util.js"></script>

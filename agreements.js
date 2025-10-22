@@ -42,7 +42,9 @@
     const id = select.value;
     const section = document.getElementById('agreement-section');
     if (!id) {
-      section.style.display = 'none';
+      if (section) {
+        section.classList.add('is-hidden');
+      }
       currentQuote = null;
       return;
     }
@@ -70,7 +72,9 @@
     text = text.replace(/__EXÁMENES__/g, examsList);
     // Show output
     document.getElementById('agreement-output').value = text;
-    section.style.display = '';
+    if (section) {
+      section.classList.remove('is-hidden');
+    }
     // Save agreement into quote (for record)
     quote.agreement = text;
     DataStore.setQuotes(quotes);

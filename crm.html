@@ -2,83 +2,147 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>SSO CRM – Gestión de Leads</title>
+  <title>SSO CRM – Gestión de leads</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="crm">
   <div class="layout">
     <aside class="sidebar">
-      <h2>Menú</h2>
-      <nav>
-        <a href="dashboard.html">Tablero</a>
-        <a href="quoting.html">Cotizador</a>
-        <a href="crm.html">CRM</a>
-        <a href="pipeline.html">Pipeline</a>
-        <a href="worksheet.html">Hoja de trabajo</a>
-        <a href="agreements.html">Convenios</a>
-        <a href="admin.html">Administración</a>
-        <a href="logs.html">Logs</a>
-        <a href="index.html" data-logout>Salir</a>
+      <div class="sidebar__brand">
+        <img src="img/logo.png" alt="Metrored">
+        <div>
+          <p class="sidebar__title">Metrored SSO</p>
+          <p class="sidebar__subtitle">CRM de ventas</p>
+        </div>
+      </div>
+      <nav class="sidebar__nav" aria-label="Navegación principal">
+        <a href="dashboard.html" class="sidebar__nav-link">Tablero</a>
+        <a href="crm.html" class="sidebar__nav-link">CRM</a>
+        <a href="pipeline.html" class="sidebar__nav-link">Pipeline</a>
+        <a href="quoting.html" class="sidebar__nav-link">Cotizador</a>
+        <a href="agreements.html" class="sidebar__nav-link">Convenios</a>
+        <a href="worksheet.html" class="sidebar__nav-link">Hoja de trabajo</a>
+        <a href="logs.html" class="sidebar__nav-link">Logs de actividad</a>
+        <a href="admin.html" class="sidebar__nav-link">Administración</a>
       </nav>
+      <div class="sidebar__footer">
+        <button type="button" class="sidebar__logout" data-logout>Cerrar sesión</button>
+      </div>
     </aside>
-    <div class="main-content">
+    <div class="app-content">
       <header class="topbar">
-        <img src="img/logo.png" alt="Metrored logo" class="logo">
-        <span class="user-info" id="user-info"></span>
+        <div class="topbar__titles">
+          <p class="topbar__eyebrow">Gestión de clientes potenciales</p>
+          <h1 class="page-title">CRM operativo</h1>
+          <p class="page-subtitle">Centralice la captura de leads, su asignación y las actividades comerciales para mantener una ejecución impecable.</p>
+        </div>
+        <div class="topbar__meta">
+          <span class="user-info" id="user-info" data-user-info></span>
+          <span class="topbar__meta-hint">Disponible para equipos de ventas y administradores.</span>
+        </div>
       </header>
-      <main class="container">
-    <section>
-      <h3>Agregar nuevo lead</h3>
-      <form id="lead-form" onsubmit="return false;">
-        <label for="leadName">Nombre:</label>
-        <input type="text" id="leadName" required>
-        <label for="leadCompany">Empresa:</label>
-        <input type="text" id="leadCompany">
-        <label for="leadEmail">Email:</label>
-        <input type="email" id="leadEmail">
-        <label for="leadPhone">Teléfono:</label>
-        <input type="text" id="leadPhone">
-        <label for="leadStage">Etapa:</label>
-        <select id="leadStage">
-          <option value="new">Nuevo</option>
-          <option value="contact">Contactado</option>
-          <option value="negotiation">Negociación</option>
-          <option value="won">Ganado</option>
-          <option value="lost">Perdido</option>
-        </select>
-        <button type="button" class="btn-primary" onclick="addLead()">Guardar lead</button>
-      </form>
-    </section>
-    <section>
-      <h3>Leads</h3>
-      <table id="leads-table">
-        <thead>
-          <tr><th>Nombre</th><th>Empresa</th><th>Email</th><th>Teléfono</th><th>Etapa</th><th>Acciones</th></tr>
-        </thead>
-        <tbody id="leads-body"></tbody>
-      </table>
-    </section>
-    <section>
-      <h3>Agregar tarea</h3>
-      <form id="task-form" onsubmit="return false;">
-        <label for="taskDesc">Descripción:</label>
-        <input type="text" id="taskDesc" required>
-        <label for="taskLead">Lead:</label>
-        <select id="taskLead"></select>
-        <label for="taskDue">Fecha vencimiento:</label>
-        <input type="date" id="taskDue">
-        <button type="button" class="btn-primary" onclick="addTask()">Guardar tarea</button>
-      </form>
-    </section>
-    <section>
-      <h3>Tareas</h3>
-      <table id="tasks-table">
-        <thead>
-          <tr><th>Tarea</th><th>Lead</th><th>Vencimiento</th><th>Estado</th><th>Acciones</th></tr>
-        </thead>
-        <tbody id="tasks-body"></tbody>
-      </table>
-    </section>
+      <main class="page-content">
+        <section class="page-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Registrar lead</h2>
+              <p class="section-subtitle">Capture información clave para priorizar contactos y asignar responsables.</p>
+            </div>
+          </div>
+          <form id="lead-form" class="form-grid" onsubmit="return false;">
+            <div>
+              <label for="leadName">Nombre</label>
+              <input type="text" id="leadName" required>
+            </div>
+            <div>
+              <label for="leadCompany">Empresa</label>
+              <input type="text" id="leadCompany">
+            </div>
+            <div>
+              <label for="leadEmail">Correo electrónico</label>
+              <input type="email" id="leadEmail">
+            </div>
+            <div>
+              <label for="leadPhone">Teléfono</label>
+              <input type="text" id="leadPhone">
+            </div>
+            <div>
+              <label for="leadStage">Etapa</label>
+              <select id="leadStage">
+                <option value="new">Nuevo</option>
+                <option value="contact">Contactado</option>
+                <option value="negotiation">Negociación</option>
+                <option value="won">Ganado</option>
+                <option value="lost">Perdido</option>
+              </select>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-primary" onclick="addLead()">Guardar lead</button>
+            </div>
+          </form>
+        </section>
+        <section class="page-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Leads activos</h2>
+              <p class="section-subtitle">Actualice la etapa comercial y mantenga una base depurada de oportunidades.</p>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table id="leads-table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Empresa</th>
+                  <th>Correo</th>
+                  <th>Teléfono</th>
+                  <th>Etapa</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="leads-body"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="page-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Plan de acción</h2>
+              <p class="section-subtitle">Organice tareas de seguimiento y mantenga la disciplina comercial.</p>
+            </div>
+          </div>
+          <form id="task-form" class="form-grid" onsubmit="return false;">
+            <div>
+              <label for="taskDesc">Descripción</label>
+              <input type="text" id="taskDesc" required>
+            </div>
+            <div>
+              <label for="taskLead">Lead asociado</label>
+              <select id="taskLead"></select>
+            </div>
+            <div>
+              <label for="taskDue">Fecha de vencimiento</label>
+              <input type="date" id="taskDue">
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-primary" onclick="addTask()">Guardar tarea</button>
+            </div>
+          </form>
+          <div class="table-wrapper">
+            <table id="tasks-table">
+              <thead>
+                <tr>
+                  <th>Tarea</th>
+                  <th>Lead</th>
+                  <th>Vencimiento</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tasks-body"></tbody>
+            </table>
+          </div>
+        </section>
       </main>
     </div>
   </div>

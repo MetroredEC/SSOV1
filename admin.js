@@ -18,7 +18,7 @@
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${exam.name}</td>
-        <td><input type="number" class="cost-input" value="${exam.cost}" min="0" step="0.01" data-index="${index}"></td>
+        <td><input type="number" class="input-compact cost-input" value="${exam.cost}" min="0" step="0.01" data-index="${index}"></td>
         <td><button class="btn-action" onclick="removeExam(${index})">Eliminar</button></td>
       `;
       tbody.appendChild(tr);
@@ -115,13 +115,16 @@
     const margins = DataStore.getMargins();
     container.innerHTML = '';
     margins.forEach((m, idx) => {
-      const div = document.createElement('div');
-      div.style.marginBottom = '5px';
-      div.innerHTML = `<input type="number" value="${m}" min="0" step="0.01" data-index="${idx}" style="width:80px;"> <button class="btn-action" onclick="removeMargin(${idx})">Eliminar</button>`;
-      container.appendChild(div);
+      const row = document.createElement('div');
+      row.className = 'margin-row';
+      row.innerHTML = `
+        <input type="number" value="${m}" min="0" step="0.01" data-index="${idx}" class="input-compact margin-input">
+        <button class="btn-action" onclick="removeMargin(${idx})">Eliminar</button>
+      `;
+      container.appendChild(row);
     });
     // Change event for margin inputs
-    container.querySelectorAll('input[type="number"]').forEach(input => {
+    container.querySelectorAll('.margin-input').forEach(input => {
       input.addEventListener('change', function() {
         const idx = parseInt(this.getAttribute('data-index'));
         const newVal = parseFloat(this.value);
@@ -223,7 +226,13 @@
       const id = 'pref_' + item.key;
       const checked = prefs.length === 0 || prefs.includes(item.key);
       const wrapper = document.createElement('div');
-      wrapper.innerHTML = `<label><input type="checkbox" id="${id}" value="${item.key}" ${checked ? 'checked' : ''}> ${item.label}</label>`;
+      wrapper.className = 'pref-row';
+      wrapper.innerHTML = `
+        <label for="${id}">
+          <input type="checkbox" id="${id}" value="${item.key}" ${checked ? 'checked' : ''}>
+          ${item.label}
+        </label>
+      `;
       container.appendChild(wrapper);
     });
   }

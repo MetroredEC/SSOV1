@@ -49,6 +49,16 @@ nav a:hover {
   text-decoration: underline;
 }
 
+nav a.active {
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+header nav a.active {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+  padding-bottom: 2px;
+}
+
 /* Header layout: logo and title on the left with navigation on the right */
 header nav {
   display: flex;
@@ -349,6 +359,51 @@ textarea {
 
 .sidebar a:hover {
   text-decoration: underline;
+}
+
+.sidebar a.active {
+  background-color: rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+}
+
+.toast {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 6px;
+  min-width: 220px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast--success {
+  background-color: #2e8540;
+}
+
+.toast--error {
+  background-color: #c62828;
+}
+
+.toast--warning {
+  background-color: #e6a100;
 }
 
 .main-content {

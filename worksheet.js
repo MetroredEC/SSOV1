@@ -142,7 +142,7 @@
 
   window.saveWorksheet = function() {
     if (!currentQuoteId) {
-      alert('Seleccione una cotización');
+      UI.showWarning('Seleccione una cotización');
       return;
     }
     const tbody = document.getElementById('worksheet-body');
@@ -180,7 +180,7 @@
       });
     });
     if (!valid) {
-      alert('Debe ingresar al menos nombre y cédula para cada colaborador');
+      UI.showError('Debe ingresar al menos nombre y cédula para cada colaborador');
       return;
     }
     // Validate assignment limits
@@ -189,7 +189,7 @@
         const count = examCounts[examName];
         const max = currentExamQuantities[examName] || Infinity;
         if (max !== Infinity && count > max) {
-          alert(`El número de asignaciones para el examen "${examName}" (${count}) supera la cantidad cotizada (${max}). Ajuste la hoja de trabajo.`);
+          UI.showError(`El número de asignaciones para el examen "${examName}" (${count}) supera la cantidad cotizada (${max}). Ajuste la hoja de trabajo.`);
           return;
         }
       }
@@ -200,7 +200,7 @@
     if (quote) {
       quote.worksheet = employees;
       DataStore.setQuotes(quotes);
-      alert('Hoja de trabajo guardada');
+      UI.showSuccess('Hoja de trabajo guardada');
     }
   };
 

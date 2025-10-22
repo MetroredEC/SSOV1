@@ -5,7 +5,7 @@
   <title>SSO CRM – Gestión de Leads</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="crm">
   <div class="layout">
     <aside class="sidebar">
       <h2>Menú</h2>
@@ -18,7 +18,7 @@
         <a href="agreements.html">Convenios</a>
         <a href="admin.html">Administración</a>
         <a href="logs.html">Logs</a>
-        <a href="index.html" onclick="DataStore.clearCurrentUser()">Salir</a>
+        <a href="index.html" data-logout>Salir</a>
       </nav>
     </aside>
     <div class="main-content">
@@ -86,14 +86,5 @@
   <script src="data.js"></script>
   <script src="util.js"></script>
   <script src="crm.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const currentUser = DataStore.getCurrentUser();
-      const userInfoEl = document.getElementById('user-info');
-      if (currentUser && userInfoEl) {
-        userInfoEl.textContent = currentUser.name + ' (' + currentUser.role + ')';
-      }
-    });
-  </script>
 </body>
 </html>

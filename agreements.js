@@ -78,9 +78,30 @@
 
   function copyToClipboard() {
     const textarea = document.getElementById('agreement-output');
+    const text = textarea.value;
+    if (!text) {
+      UI.showWarning('No hay información para copiar');
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        UI.showSuccess('Convenio copiado al portapapeles');
+      }).catch(() => {
+        fallbackCopy(textarea);
+      });
+    } else {
+      fallbackCopy(textarea);
+    }
+  }
+
+  function fallbackCopy(textarea) {
     textarea.select();
-    document.execCommand('copy');
-    alert('Convenio copiado al portapapeles');
+    const ok = document.execCommand('copy');
+    if (ok) {
+      UI.showSuccess('Convenio copiado al portapapeles');
+    } else {
+      UI.showError('No se pudo copiar el convenio');
+    }
   }
 
   function downloadAgreement() {
@@ -95,6 +116,7 @@
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    UI.showSuccess('Archivo descargado');
   }
 
   function init() {

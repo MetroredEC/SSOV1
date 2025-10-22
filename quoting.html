@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SSO CRM – Cotizador</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Menú</h2>
+      <nav>
+        <a href="dashboard.html">Tablero</a>
+        <a href="quoting.html">Cotizador</a>
+        <a href="crm.html">CRM</a>
+        <a href="pipeline.html">Pipeline</a>
+        <a href="worksheet.html">Hoja de trabajo</a>
+        <a href="agreements.html">Convenios</a>
+        <a href="admin.html">Administración</a>
+        <a href="logs.html">Logs</a>
+        <a href="index.html" onclick="DataStore.clearCurrentUser()">Salir</a>
+      </nav>
+    </aside>
+    <div class="main-content">
+      <header class="topbar">
+        <img src="img/logo.png" alt="Metrored logo" class="logo">
+        <span class="user-info" id="user-info"></span>
+      </header>
+      <main class="container">
+        <h2>Crear nueva cotización</h2>
+        <section id="tariff-section">
+      <h3>Lista de exámenes</h3>
+      <input type="text" id="exam-search" placeholder="Buscar examen..." style="width:100%; margin-bottom:10px;">
+      <table id="tariff-table">
+        <thead>
+          <tr>
+            <th>Examen</th>
+            <th>Costo ($)</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="tariff-body"></tbody>
+      </table>
+      <div class="table-controls">
+        <input type="text" id="newExamName" placeholder="Nombre de examen">
+        <input type="number" id="newExamCost" placeholder="Costo" min="0" step="0.01">
+        <button type="button" class="btn-primary" onclick="addNewExam()">Agregar examen</button>
+      </div>
+    </section>
+
+        <section id="selected-section" style="margin-top:20px;">
+      <h3>Exámenes seleccionados</h3>
+      <table id="selected-table">
+        <thead>
+          <tr>
+            <th>Examen</th>
+            <th>Costo ($)</th>
+            <th>Cantidad</th>
+            <th>Subtotal ($)</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="selected-body"></tbody>
+      </table>
+    </section>
+        <section>
+      <h3>Margen de utilidad</h3>
+      <select id="margin-select"></select>
+    </section>
+        <section>
+      <h3>Resultado de cotización</h3>
+      <p id="quote-summary">Seleccione exámenes y un margen para calcular.</p>
+    </section>
+    <section>
+      <h3>Datos del cliente</h3>
+      <form id="client-form" onsubmit="return false;">
+        <label for="clientName">Empresa:</label>
+        <input type="text" id="clientName" required>
+        <label for="clientAddress">Dirección:</label>
+        <input type="text" id="clientAddress" required>
+        <label for="clientRuc">RUC/Cédula:</label>
+        <input type="text" id="clientRuc" required>
+        <label for="clientRep">Representante legal:</label>
+        <input type="text" id="clientRep" required>
+        <button type="button" class="btn-primary" onclick="saveQuote()">Guardar cotización</button>
+      </form>
+    </section>
+        <h2>Cotizaciones existentes</h2>
+        <table id="quotes-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Empresa</th>
+          <th>Fecha</th>
+          <th>Total ($)</th>
+          <th>Margen (%)</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="quotes-body"></tbody>
+        </table>
+      </main>
+    </div>
+  </div>
+  <script src="util.js"></script>
+  <script src="quoting.js"></script>
+  <script src="tariff.js"></script>
+  <script src="data.js"></script>
+  <script src="util.js"></script>
+  <script src="quoting.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = DataStore.getCurrentUser();
+      const userInfoEl = document.getElementById('user-info');
+      if (currentUser && userInfoEl) {
+        userInfoEl.textContent = currentUser.name + ' (' + currentUser.role + ')';
+      }
+    });
+  </script>
+</body>
+</html>

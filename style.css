@@ -1,0 +1,386 @@
+/*
+ * Global styles for SSO CRM Ultimate.
+ *
+ * This stylesheet defines a clean, responsive interface for all
+ * pages in the CRM. Sections are clearly separated and use
+ * consistent spacing. Additional classes are included for
+ * badges, tables, forms and interactive boards.
+ */
+
+/* Color palette variables for easy theming */
+:root {
+  --primary-color: #007acc;
+  /* Dark navy inspired by Metrored branding */
+  --dark-color: #003366;
+  /* Accent color matching the Metrored logo */
+  --accent-color: #00a3e0;
+  --bg-color: #f7f7f7;
+  --card-bg: #ffffff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-color);
+  margin: 0;
+  color: #333;
+}
+
+header {
+  background-color: #003366;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav a {
+  color: white;
+  margin: 0 5px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Header layout: logo and title on the left with navigation on the right */
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Container for logo and page title inside header */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-left .logo {
+  height: 40px;
+}
+
+/* Login page styling */
+.login-page {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.login-container .login-logo {
+  max-width: 150px;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+.login-container h1 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  color: var(--dark-color);
+}
+
+.login-container p {
+  margin: 0 0 20px;
+  color: #555;
+}
+
+/* Primary button used across the app */
+.btn-primary {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary:hover {
+  background-color: #0086cc;
+}
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.center {
+  text-align: center;
+}
+
+h2 {
+  margin-top: 30px;
+  color: #003366;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f0f0;
+}
+
+.kpis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.kpi-card {
+  flex: 1 1 150px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.kpi-card h4 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.kpi-card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #003366;
+}
+
+.charts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.chart-box {
+  flex: 1 1 300px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-action {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+.btn-action:hover {
+  background-color: #0056a3;
+}
+
+.badge {
+  padding: 3px 7px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: white;
+}
+
+.badge.pending {
+  background-color: #f0ad4e;
+}
+
+.badge.approved {
+  background-color: #5cb85c;
+}
+
+.badge.rejected {
+  background-color: #d9534f;
+}
+
+.badge.open {
+  background-color: #5bc0de;
+}
+
+.badge.done {
+  background-color: #5cb85c;
+}
+
+.table-controls {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"],
+select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+label {
+  display: block;
+  margin: 8px 0 4px;
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+/* Pipeline board styles */
+.pipeline-board {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.pipeline-column {
+  flex: 1 1 200px;
+  background-color: #eef5fd;
+  border: 1px solid #cce0f5;
+  border-radius: 4px;
+  padding: 10px;
+  min-width: 200px;
+}
+
+.pipeline-column h4 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #003366;
+  text-align: center;
+}
+
+.lead-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+.lead-card p {
+  margin: 4px 0;
+}
+
+.lead-card button {
+  margin-top: 5px;
+  padding: 4px 8px;
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.lead-card button:hover {
+  background-color: #0056a3;
+}
+
+/* New layout with sidebar and top bar */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: var(--dark-color);
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin: 10px 0;
+  font-weight: 500;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-color);
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.topbar .logo {
+  height: 40px;
+}
+
+.topbar .user-info {
+  font-weight: bold;
+  color: var(--dark-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .kpis, .charts {
+    flex-direction: column;
+  }
+  nav a {
+    margin-right: 5px;
+  }
+}

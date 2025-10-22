@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SSO CRM – Hoja de trabajo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="img/logo.png" alt="Metrored logo" class="logo">
+      <h1>📝 Hoja de trabajo</h1>
+    </div>
+    <nav>
+      <a href="dashboard.html">📊 Tablero</a>
+      <a href="quoting.html">💼 Cotizador</a>
+      <a href="crm.html">👥 CRM</a>
+      <a href="pipeline.html">🧭 Pipeline</a>
+      <a href="agreements.html">📄 Convenios</a>
+      <a href="admin.html">⚙️ Admin</a>
+      <a href="logs.html">📜 Logs</a>
+      <a href="index.html" onclick="DataStore.clearCurrentUser()">🚪 Salir</a>
+    </nav>
+  </header>
+  <main class="container">
+    <h2>🧑‍⚕️ Asigne exámenes a los colaboradores</h2>
+    <label for="quote-select">Seleccione una cotización aprobada:</label>
+    <select id="quote-select"></select>
+    <section id="worksheet-container" style="display:none;">
+      <table id="worksheet-table">
+        <thead id="worksheet-head"></thead>
+        <tbody id="worksheet-body"></tbody>
+      </table>
+      <button type="button" class="btn-primary" onclick="addEmployeeRow()">Agregar colaborador</button>
+      <button type="button" class="btn-primary" onclick="saveWorksheet()" style="margin-left:10px;">Guardar hoja</button>
+    </section>
+  </main>
+  <script src="tariff.js"></script>
+  <script src="data.js"></script>
+  <script src="util.js"></script>
+  <script src="worksheet.js"></script>
+</body>
+</html>

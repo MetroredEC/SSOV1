@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SSO CRM – Administración</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="img/logo.png" alt="Metrored logo" class="logo">
+      <h1>⚙️ Panel de administración</h1>
+    </div>
+    <nav>
+      <a href="dashboard.html">📊 Tablero</a>
+      <a href="quoting.html">💼 Cotizador</a>
+      <a href="crm.html">👥 CRM</a>
+      <a href="pipeline.html">🧭 Pipeline</a>
+      <a href="worksheet.html">📋 Hoja de trabajo</a>
+      <a href="agreements.html">📄 Convenios</a>
+      <a href="admin.html">⚙️ Admin</a>
+      <a href="logs.html">📜 Logs</a>
+      <a href="index.html" onclick="DataStore.clearCurrentUser()">🚪 Salir</a>
+    </nav>
+  </header>
+  <main class="container">
+    <section>
+      <h3>💲 Gestión de tarifarios</h3>
+      <p>Cargue una lista de exámenes y costos desde un archivo CSV o edite manualmente la tabla.</p>
+      <input type="file" id="tariffUpload" accept=".csv">
+      <button type="button" class="btn-primary" onclick="exportTariff()">Exportar tarifa actual</button>
+      <table id="admin-tariff-table">
+        <thead>
+          <tr><th>Examen</th><th>Costo ($)</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="admin-tariff-body"></tbody>
+      </table>
+      <div class="table-controls">
+        <input type="text" id="adminNewExamName" placeholder="Nombre de examen">
+        <input type="number" id="adminNewExamCost" placeholder="Costo" min="0" step="0.01">
+        <button type="button" class="btn-primary" onclick="adminAddExam()">Agregar examen</button>
+      </div>
+    </section>
+    <section>
+      <h3>📊 Márgenes autorizados</h3>
+      <p>Configure los márgenes disponibles para el cotizador.</p>
+      <div id="margins-container"></div>
+      <div class="table-controls">
+        <input type="number" id="newMarginValue" placeholder="Nuevo margen" min="0" step="0.01">
+        <button type="button" class="btn-primary" onclick="addMargin()">Agregar margen</button>
+      </div>
+    </section>
+    <section>
+      <h3>👥 Usuarios del sistema</h3>
+      <p>Gestione los usuarios del CRM y sus roles.</p>
+      <table id="users-table">
+        <thead><tr><th>Nombre</th><th>Rol</th><th>Acciones</th></tr></thead>
+        <tbody id="users-body"></tbody>
+      </table>
+      <form id="add-user-form" onsubmit="return false;" style="margin-top:10px;">
+        <input type="text" id="newUserName" placeholder="Nombre de usuario" required>
+        <select id="newUserRole">
+          <option value="seller">Vendedor</option>
+          <option value="admin">Administrador</option>
+          <option value="control">Control</option>
+        </select>
+        <input type="password" id="newUserPassword" placeholder="Contraseña" required style="margin-top:5px;">
+        <button type="button" class="btn-primary" onclick="addUser()">Agregar usuario</button>
+      </form>
+    </section>
+    <section>
+      <h3>📄 Plantilla de convenio</h3>
+      <p>Edite el texto que se utiliza para generar convenios de servicios.</p>
+      <textarea id="agreementTemplate" rows="6" style="width:100%;"></textarea>
+      <button type="button" class="btn-primary" style="margin-top:10px;" onclick="saveAgreementTemplate()">Guardar plantilla</button>
+    </section>
+    <section>
+      <h3>📊 Personalización de tablero</h3>
+      <p>Seleccione qué indicadores y gráficos se mostrarán en el tablero de control.</p>
+      <div id="dashboardPrefs"></div>
+      <button type="button" class="btn-primary" style="margin-top:10px;" onclick="saveDashboardPrefs()">Guardar preferencias</button>
+    </section>
+  </main>
+  <script src="tariff.js"></script>
+  <script src="data.js"></script>
+  <script src="util.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

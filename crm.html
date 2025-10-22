@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SSO CRM – Gestión de Leads</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Menú</h2>
+      <nav>
+        <a href="dashboard.html">Tablero</a>
+        <a href="quoting.html">Cotizador</a>
+        <a href="crm.html">CRM</a>
+        <a href="pipeline.html">Pipeline</a>
+        <a href="worksheet.html">Hoja de trabajo</a>
+        <a href="agreements.html">Convenios</a>
+        <a href="admin.html">Administración</a>
+        <a href="logs.html">Logs</a>
+        <a href="index.html" onclick="DataStore.clearCurrentUser()">Salir</a>
+      </nav>
+    </aside>
+    <div class="main-content">
+      <header class="topbar">
+        <img src="img/logo.png" alt="Metrored logo" class="logo">
+        <span class="user-info" id="user-info"></span>
+      </header>
+      <main class="container">
+    <section>
+      <h3>Agregar nuevo lead</h3>
+      <form id="lead-form" onsubmit="return false;">
+        <label for="leadName">Nombre:</label>
+        <input type="text" id="leadName" required>
+        <label for="leadCompany">Empresa:</label>
+        <input type="text" id="leadCompany">
+        <label for="leadEmail">Email:</label>
+        <input type="email" id="leadEmail">
+        <label for="leadPhone">Teléfono:</label>
+        <input type="text" id="leadPhone">
+        <label for="leadStage">Etapa:</label>
+        <select id="leadStage">
+          <option value="new">Nuevo</option>
+          <option value="contact">Contactado</option>
+          <option value="negotiation">Negociación</option>
+          <option value="won">Ganado</option>
+          <option value="lost">Perdido</option>
+        </select>
+        <button type="button" class="btn-primary" onclick="addLead()">Guardar lead</button>
+      </form>
+    </section>
+    <section>
+      <h3>Leads</h3>
+      <table id="leads-table">
+        <thead>
+          <tr><th>Nombre</th><th>Empresa</th><th>Email</th><th>Teléfono</th><th>Etapa</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="leads-body"></tbody>
+      </table>
+    </section>
+    <section>
+      <h3>Agregar tarea</h3>
+      <form id="task-form" onsubmit="return false;">
+        <label for="taskDesc">Descripción:</label>
+        <input type="text" id="taskDesc" required>
+        <label for="taskLead">Lead:</label>
+        <select id="taskLead"></select>
+        <label for="taskDue">Fecha vencimiento:</label>
+        <input type="date" id="taskDue">
+        <button type="button" class="btn-primary" onclick="addTask()">Guardar tarea</button>
+      </form>
+    </section>
+    <section>
+      <h3>Tareas</h3>
+      <table id="tasks-table">
+        <thead>
+          <tr><th>Tarea</th><th>Lead</th><th>Vencimiento</th><th>Estado</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="tasks-body"></tbody>
+      </table>
+    </section>
+      </main>
+    </div>
+  </div>
+  <script src="tariff.js"></script>
+  <script src="data.js"></script>
+  <script src="util.js"></script>
+  <script src="crm.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = DataStore.getCurrentUser();
+      const userInfoEl = document.getElementById('user-info');
+      if (currentUser && userInfoEl) {
+        userInfoEl.textContent = currentUser.name + ' (' + currentUser.role + ')';
+      }
+    });
+  </script>
+</body>
+</html>

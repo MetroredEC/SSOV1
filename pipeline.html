@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SSO CRM – Pipeline de ventas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Menú</h2>
+      <nav>
+        <a href="dashboard.html">Tablero</a>
+        <a href="quoting.html">Cotizador</a>
+        <a href="crm.html">CRM</a>
+        <a href="pipeline.html">Pipeline</a>
+        <a href="worksheet.html">Hoja de trabajo</a>
+        <a href="agreements.html">Convenios</a>
+        <a href="admin.html">Administración</a>
+        <a href="logs.html">Logs</a>
+        <a href="index.html" onclick="DataStore.clearCurrentUser()">Salir</a>
+      </nav>
+    </aside>
+    <div class="main-content">
+      <header class="topbar">
+        <img src="img/logo.png" alt="Metrored logo" class="logo">
+        <span class="user-info" id="user-info"></span>
+      </header>
+      <main class="container">
+        <h2>Estado de Leads</h2>
+        <div class="pipeline-board" id="pipeline-board"></div>
+      </main>
+    </div>
+  </div>
+  <script src="tariff.js"></script>
+  <script src="data.js"></script>
+  <script src="util.js"></script>
+  <script src="pipeline.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = DataStore.getCurrentUser();
+      const userInfoEl = document.getElementById('user-info');
+      if (currentUser && userInfoEl) {
+        userInfoEl.textContent = currentUser.name + ' (' + currentUser.role + ')';
+      }
+    });
+  </script>
+</body>
+</html>

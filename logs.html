@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SSO CRM – Registros de cotizaciones</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="img/logo.png" alt="Metrored logo" class="logo">
+      <h1>📜 Registros de cotizaciones</h1>
+    </div>
+    <nav>
+      <a href="dashboard.html">📊 Tablero</a>
+      <a href="quoting.html">💼 Cotizador</a>
+      <a href="crm.html">👥 CRM</a>
+      <a href="pipeline.html">🧭 Pipeline</a>
+      <a href="worksheet.html">📋 Hoja de trabajo</a>
+      <a href="agreements.html">📄 Convenios</a>
+      <a href="admin.html">⚙️ Admin</a>
+      <a href="logs.html">📜 Logs</a>
+      <a href="index.html" onclick="DataStore.clearCurrentUser()">🚪 Salir</a>
+    </nav>
+  </header>
+  <main class="container">
+    <h2>Historial de cotizaciones</h2>
+    <table id="logs-table">
+      <thead>
+        <tr>
+          <th>Fecha y hora</th>
+          <th>Usuario</th>
+          <th>Acción</th>
+          <th>ID Cotización</th>
+          <th>Empresa</th>
+          <th>Margen (%)</th>
+          <th>Total ($)</th>
+        </tr>
+      </thead>
+      <tbody id="logs-body"></tbody>
+    </table>
+  </main>
+  <script src="tariff.js"></script>
+  <script src="data.js"></script>
+  <script src="util.js"></script>
+  <script src="logs.js"></script>
+</body>
+</html>

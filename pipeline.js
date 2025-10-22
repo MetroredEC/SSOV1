@@ -72,7 +72,7 @@
   }
 
   function deleteLeadById(id) {
-    if (!confirm('¿Está seguro de eliminar este lead?')) return;
+    if (!UI.confirm('¿Está seguro de eliminar este lead?')) return;
     let leads = DataStore.getLeads();
     const lead = leads.find(l => (l.id || leads.indexOf(l)) === id);
     if (!lead) return;
@@ -83,6 +83,7 @@
     tasks = tasks.filter(t => t.leadId !== id);
     DataStore.setTasks(tasks);
     renderBoard();
+    UI.showSuccess('Lead eliminado del pipeline');
   }
 
   function init() {

@@ -217,7 +217,10 @@
   window.changeQuoteStatus = function(id, newStatus) {
     const quotes = DataStore.getQuotes();
     const quote = quotes.find(q => q.id === id);
-    if (!quote) return;
+    if (!quote) {
+      UI.showError('No se encontró la cotización seleccionada.');
+      return;
+    }
     quote.status = newStatus;
     DataStore.setQuotes(quotes);
     // Log the status change
@@ -232,6 +235,8 @@
       total: quote.total
     });
     renderQuotesList();
+    const statusText = newStatus === 'approved' ? 'aprobada' : newStatus === 'rejected' ? 'rechazada' : newStatus;
+    UI.showSuccess(`Cotización ${statusText}.`);
   };
 
   /**
@@ -244,7 +249,7 @@
    */
   window.saveQuote = function() {
     if (Object.keys(selectedExams).length === 0) {
-      alert('Seleccione al menos un examen para cotizar');
+      UI.showWarning('Seleccione al menos un examen para cotizar');
       return;
     }
     const company = document.getElementById('clientName').value.trim();
@@ -252,7 +257,7 @@
     const ruc = document.getElementById('clientRuc').value.trim();
     const rep = document.getElementById('clientRep').value.trim();
     if (!company || !address || !ruc || !rep) {
-      alert('Ingrese todos los datos del cliente');
+      UI.showError('Ingrese todos los datos del cliente');
       return;
     }
     const margin = parseFloat(document.getElementById('margin-select').value);
@@ -293,7 +298,7 @@
       margin: margin,
       total: total
     });
-    alert('Cotización guardada');
+    UI.showSuccess('Cotización guardada');
     // Reset selections and form
     for (const k in selectedExams) {
       if (selectedExams.hasOwnProperty(k)) {
@@ -317,7 +322,7 @@
     const name = nameInput.value.trim();
     const cost = parseFloat(costInput.value);
     if (!name || isNaN(cost) || cost < 0) {
-      alert('Ingrese un nombre y un costo válido');
+      UI.showError('Ingrese un nombre y un costo válido');
       return;
     }
     const tariff = DataStore.getTariff();
@@ -329,6 +334,7 @@
     applySearch();
     nameInput.value = '';
     costInput.value = '';
+    UI.showSuccess('Examen agregado al tarifario');
   };
 
   /**

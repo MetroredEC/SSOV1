@@ -18,7 +18,7 @@
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${exam.name}</td>
-        <td><input type="number" class="cost-input" value="${exam.cost}" min="0" step="0.01" data-index="${index}"></td>
+        <td><input type="number" class="input-compact cost-input" value="${exam.cost}" min="0" step="0.01" data-index="${index}"></td>
         <td><button class="btn-action" onclick="removeExam(${index})">Eliminar</button></td>
       `;
       tbody.appendChild(tr);
@@ -41,7 +41,7 @@
     const name = document.getElementById('adminNewExamName').value.trim();
     const cost = parseFloat(document.getElementById('adminNewExamCost').value);
     if (!name || isNaN(cost) || cost < 0) {
-      alert('Ingrese un nombre y costo válidos');
+      UI.showError('Ingrese un nombre y costo válidos');
       return;
     }
     const tariff = DataStore.getTariff();
@@ -50,6 +50,7 @@
     document.getElementById('adminNewExamName').value = '';
     document.getElementById('adminNewExamCost').value = '';
     renderAdminTariff();
+    UI.showSuccess('Examen agregado');
   };
   // Remove exam by index
   window.removeExam = function(idx) {
@@ -57,6 +58,7 @@
     tariff.splice(idx, 1);
     DataStore.setTariff(tariff);
     renderAdminTariff();
+    UI.showSuccess('Examen eliminado');
   };
   // Import tariff from CSV
   document.addEventListener('DOMContentLoaded', () => {
@@ -82,9 +84,9 @@
           if (newTariff.length > 0) {
             DataStore.setTariff(newTariff);
             renderAdminTariff();
-            alert('Tarifa importada correctamente');
+            UI.showSuccess('Tarifa importada correctamente');
           } else {
-            alert('No se pudo importar la tarifa (formato inválido)');
+            UI.showError('No se pudo importar la tarifa (formato inválido)');
           }
         };
         reader.readAsText(file);
@@ -113,13 +115,16 @@
     const margins = DataStore.getMargins();
     container.innerHTML = '';
     margins.forEach((m, idx) => {
-      const div = document.createElement('div');
-      div.style.marginBottom = '5px';
-      div.innerHTML = `<input type="number" value="${m}" min="0" step="0.01" data-index="${idx}" style="width:80px;"> <button class="btn-action" onclick="removeMargin(${idx})">Eliminar</button>`;
-      container.appendChild(div);
+      const row = document.createElement('div');
+      row.className = 'margin-row';
+      row.innerHTML = `
+        <input type="number" value="${m}" min="0" step="0.01" data-index="${idx}" class="input-compact margin-input">
+        <button class="btn-action" onclick="removeMargin(${idx})">Eliminar</button>
+      `;
+      container.appendChild(row);
     });
     // Change event for margin inputs
-    container.querySelectorAll('input[type="number"]').forEach(input => {
+    container.querySelectorAll('.margin-input').forEach(input => {
       input.addEventListener('change', function() {
         const idx = parseInt(this.getAttribute('data-index'));
         const newVal = parseFloat(this.value);
@@ -134,7 +139,7 @@
   window.addMargin = function() {
     const val = parseFloat(document.getElementById('newMarginValue').value);
     if (isNaN(val) || val <= 0) {
-      alert('Ingrese un margen válido');
+      UI.showError('Ingrese un margen válido');
       return;
     }
     const margins = DataStore.getMargins();
@@ -142,12 +147,14 @@
     DataStore.setMargins(margins);
     document.getElementById('newMarginValue').value = '';
     renderMargins();
+    UI.showSuccess('Margen agregado');
   };
   window.removeMargin = function(idx) {
     const margins = DataStore.getMargins();
     margins.splice(idx, 1);
     DataStore.setMargins(margins);
     renderMargins();
+    UI.showSuccess('Margen eliminado');
   };
   // User management
   function renderUsers() {
@@ -169,7 +176,7 @@
     const role = document.getElementById('newUserRole').value;
     const password = document.getElementById('newUserPassword').value;
     if (!name || !password) {
-      alert('Ingrese un nombre de usuario y una contraseña');
+      UI.showError('Ingrese un nombre de usuario y una contraseña');
       return;
     }
     const users = DataStore.getUsers();
@@ -178,12 +185,14 @@
     document.getElementById('newUserName').value = '';
     document.getElementById('newUserPassword').value = '';
     renderUsers();
+    UI.showSuccess('Usuario agregado');
   };
   window.removeUser = function(idx) {
     const users = DataStore.getUsers();
     users.splice(idx, 1);
     DataStore.setUsers(users);
     renderUsers();
+    UI.showSuccess('Usuario eliminado');
   };
   // Agreement template management
   function loadAgreementTemplate() {
@@ -193,7 +202,7 @@
   window.saveAgreementTemplate = function() {
     const text = document.getElementById('agreementTemplate').value;
     DataStore.setAgreementTemplate(text);
-    alert('Plantilla guardada');
+    UI.showSuccess('Plantilla guardada');
   };
   // Dashboard preferences management
   const dashboardItems = [
@@ -217,7 +226,13 @@
       const id = 'pref_' + item.key;
       const checked = prefs.length === 0 || prefs.includes(item.key);
       const wrapper = document.createElement('div');
-      wrapper.innerHTML = `<label><input type="checkbox" id="${id}" value="${item.key}" ${checked ? 'checked' : ''}> ${item.label}</label>`;
+      wrapper.className = 'pref-row';
+      wrapper.innerHTML = `
+        <label for="${id}">
+          <input type="checkbox" id="${id}" value="${item.key}" ${checked ? 'checked' : ''}>
+          ${item.label}
+        </label>
+      `;
       container.appendChild(wrapper);
     });
   }
@@ -230,7 +245,7 @@
       }
     });
     DataStore.setDashboardPrefs(selected);
-    alert('Preferencias guardadas');
+    UI.showSuccess('Preferencias guardadas');
   };
   // Remove margin function needs global scope for inline onclick
   window.removeMargin = window.removeMargin;

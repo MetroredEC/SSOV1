@@ -5,45 +5,92 @@
   <title>SSO CRM – Tablero</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="dashboard">
   <div class="layout">
     <aside class="sidebar">
-      <h2>Menú</h2>
-      <nav>
-        <a href="dashboard.html">Tablero</a>
-        <a href="quoting.html">Cotizador</a>
-        <a href="crm.html">CRM</a>
-        <a href="pipeline.html">Pipeline</a>
-        <a href="worksheet.html">Hoja de trabajo</a>
-        <a href="agreements.html">Convenios</a>
-        <a href="admin.html">Administración</a>
-        <a href="logs.html">Logs</a>
-        <a href="index.html" onclick="DataStore.clearCurrentUser()">Salir</a>
-      </nav>
-    </aside>
-    <div class="main-content">
-      <header class="topbar">
-        <img src="img/logo.png" alt="Metrored logo" class="logo">
-        <span class="user-info" id="user-info"></span>
-      </header>
-      <main class="container">
-        <h2>Indicadores Clave</h2>
-        <div class="kpis">
-      <div class="kpi-card" data-key="totalQuotes"><h4>Cotizaciones Totales</h4><p id="kpiTotalQuotes">0</p></div>
-      <div class="kpi-card" data-key="approvedQuotes"><h4>Cotizaciones Aprobadas</h4><p id="kpiApprovedQuotes">0</p></div>
-      <div class="kpi-card" data-key="pendingQuotes"><h4>Cotizaciones Pendientes</h4><p id="kpiPendingQuotes">0</p></div>
-      <div class="kpi-card" data-key="revenue"><h4>Ingresos Totales ($)</h4><p id="kpiRevenue">0</p></div>
-      <div class="kpi-card" data-key="leads"><h4>Leads Totales</h4><p id="kpiLeads">0</p></div>
-      <div class="kpi-card" data-key="tasks"><h4>Tareas Pendientes</h4><p id="kpiTasks">0</p></div>
-    </div>
-        <h2>Gráficas</h2>
-        <div class="charts">
-      <div class="chart-box" data-key="quotesByStatus"><canvas id="chartQuotes"></canvas></div>
-      <div class="chart-box" data-key="marginDistribution"><canvas id="chartMargins"></canvas></div>
-      <div class="chart-box" data-key="leadsByStage"><canvas id="chartLeads"></canvas></div>
-      <div class="chart-box" data-key="tasksByStatus"><canvas id="chartTasks"></canvas></div>
-      <div class="chart-box" data-key="revenueByMargin"><canvas id="chartRevenue"></canvas></div>
+      <div class="sidebar__brand">
+        <img src="img/logo.png" alt="Metrored">
+        <div>
+          <p class="sidebar__title">Metrored SSO</p>
+          <p class="sidebar__subtitle">CRM de ventas</p>
         </div>
+      </div>
+      <nav class="sidebar__nav" aria-label="Navegación principal">
+        <a href="dashboard.html" class="sidebar__nav-link">Tablero</a>
+        <a href="crm.html" class="sidebar__nav-link">CRM</a>
+        <a href="pipeline.html" class="sidebar__nav-link">Pipeline</a>
+        <a href="quoting.html" class="sidebar__nav-link">Cotizador</a>
+        <a href="agreements.html" class="sidebar__nav-link">Convenios</a>
+        <a href="worksheet.html" class="sidebar__nav-link">Hoja de trabajo</a>
+        <a href="logs.html" class="sidebar__nav-link">Logs de actividad</a>
+        <a href="admin.html" class="sidebar__nav-link">Administración</a>
+      </nav>
+      <div class="sidebar__footer">
+        <button type="button" class="sidebar__logout" data-logout>Cerrar sesión</button>
+      </div>
+    </aside>
+    <div class="app-content">
+      <header class="topbar">
+        <div class="topbar__titles">
+          <p class="topbar__eyebrow">Resumen comercial</p>
+          <h1 class="page-title">Tablero ejecutivo</h1>
+          <p class="page-subtitle">Monitoree el desempeño del equipo, la conversión del pipeline y el avance de las cotizaciones en tiempo real.</p>
+        </div>
+        <div class="topbar__meta">
+          <span class="user-info" id="user-info" data-user-info></span>
+          <span class="topbar__meta-hint">Datos sincronizados con el último corte operativo.</span>
+        </div>
+      </header>
+      <main class="page-content">
+        <section class="page-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Indicadores clave</h2>
+              <p class="section-subtitle">Resultados consolidados de ventas, clientes y productividad comercial.</p>
+            </div>
+          </div>
+          <div class="kpis">
+            <div class="kpi-card" data-key="totalQuotes">
+              <h4>Cotizaciones totales</h4>
+              <p id="kpiTotalQuotes">0</p>
+            </div>
+            <div class="kpi-card" data-key="approvedQuotes">
+              <h4>Cotizaciones aprobadas</h4>
+              <p id="kpiApprovedQuotes">0</p>
+            </div>
+            <div class="kpi-card" data-key="pendingQuotes">
+              <h4>Cotizaciones pendientes</h4>
+              <p id="kpiPendingQuotes">0</p>
+            </div>
+            <div class="kpi-card" data-key="revenue">
+              <h4>Ingresos totales ($)</h4>
+              <p id="kpiRevenue">0</p>
+            </div>
+            <div class="kpi-card" data-key="leads">
+              <h4>Leads activos</h4>
+              <p id="kpiLeads">0</p>
+            </div>
+            <div class="kpi-card" data-key="tasks">
+              <h4>Tareas pendientes</h4>
+              <p id="kpiTasks">0</p>
+            </div>
+          </div>
+        </section>
+        <section class="page-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Análisis visual</h2>
+              <p class="section-subtitle">Identifique tendencias por estado de cotización, distribución de margen y carga operativa.</p>
+            </div>
+          </div>
+          <div class="charts">
+            <div class="chart-box" data-key="quotesByStatus"><canvas id="chartQuotes"></canvas></div>
+            <div class="chart-box" data-key="marginDistribution"><canvas id="chartMargins"></canvas></div>
+            <div class="chart-box" data-key="leadsByStage"><canvas id="chartLeads"></canvas></div>
+            <div class="chart-box" data-key="tasksByStatus"><canvas id="chartTasks"></canvas></div>
+            <div class="chart-box" data-key="revenueByMargin"><canvas id="chartRevenue"></canvas></div>
+          </div>
+        </section>
       </main>
     </div>
   </div>
@@ -51,17 +98,5 @@
   <script src="data.js"></script>
   <script src="util.js"></script>
   <script src="dashboard.js"></script>
-  <script>
-    // Mostrar información del usuario en la barra superior cuando DataStore esté disponible
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof DataStore !== 'undefined') {
-        const currentUser = DataStore.getCurrentUser();
-        const userInfoEl = document.getElementById('user-info');
-        if (currentUser && userInfoEl) {
-          userInfoEl.textContent = currentUser.name + ' (' + currentUser.role + ')';
-        }
-      }
-    });
-  </script>
 </body>
 </html>

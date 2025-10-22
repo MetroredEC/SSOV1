@@ -5,30 +5,52 @@
   <title>SSO CRM – Pipeline de ventas</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="pipeline">
   <div class="layout">
     <aside class="sidebar">
-      <h2>Menú</h2>
-      <nav>
-        <a href="dashboard.html">Tablero</a>
-        <a href="quoting.html">Cotizador</a>
-        <a href="crm.html">CRM</a>
-        <a href="pipeline.html">Pipeline</a>
-        <a href="worksheet.html">Hoja de trabajo</a>
-        <a href="agreements.html">Convenios</a>
-        <a href="admin.html">Administración</a>
-        <a href="logs.html">Logs</a>
-        <a href="index.html" onclick="DataStore.clearCurrentUser()">Salir</a>
+      <div class="sidebar__brand">
+        <img src="img/logo.png" alt="Metrored">
+        <div>
+          <p class="sidebar__title">Metrored SSO</p>
+          <p class="sidebar__subtitle">CRM de ventas</p>
+        </div>
+      </div>
+      <nav class="sidebar__nav" aria-label="Navegación principal">
+        <a href="dashboard.html" class="sidebar__nav-link">Tablero</a>
+        <a href="crm.html" class="sidebar__nav-link">CRM</a>
+        <a href="pipeline.html" class="sidebar__nav-link">Pipeline</a>
+        <a href="quoting.html" class="sidebar__nav-link">Cotizador</a>
+        <a href="agreements.html" class="sidebar__nav-link">Convenios</a>
+        <a href="worksheet.html" class="sidebar__nav-link">Hoja de trabajo</a>
+        <a href="logs.html" class="sidebar__nav-link">Logs de actividad</a>
+        <a href="admin.html" class="sidebar__nav-link">Administración</a>
       </nav>
+      <div class="sidebar__footer">
+        <button type="button" class="sidebar__logout" data-logout>Cerrar sesión</button>
+      </div>
     </aside>
-    <div class="main-content">
+    <div class="app-content">
       <header class="topbar">
-        <img src="img/logo.png" alt="Metrored logo" class="logo">
-        <span class="user-info" id="user-info"></span>
+        <div class="topbar__titles">
+          <p class="topbar__eyebrow">Visibilidad comercial</p>
+          <h1 class="page-title">Pipeline de ventas</h1>
+          <p class="page-subtitle">Controle el avance de las oportunidades por etapa y priorice acciones según el momento de compra.</p>
+        </div>
+        <div class="topbar__meta">
+          <span class="user-info" id="user-info" data-user-info></span>
+          <span class="topbar__meta-hint">Información sincronizada con el CRM de leads.</span>
+        </div>
       </header>
-      <main class="container">
-        <h2>Estado de Leads</h2>
-        <div class="pipeline-board" id="pipeline-board"></div>
+      <main class="page-content">
+        <section class="page-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Estado del pipeline</h2>
+              <p class="section-subtitle">Arrastre las oportunidades según su progreso y mantenga una proyección precisa.</p>
+            </div>
+          </div>
+          <div class="pipeline-board" id="pipeline-board"></div>
+        </section>
       </main>
     </div>
   </div>
@@ -36,14 +58,5 @@
   <script src="data.js"></script>
   <script src="util.js"></script>
   <script src="pipeline.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const currentUser = DataStore.getCurrentUser();
-      const userInfoEl = document.getElementById('user-info');
-      if (currentUser && userInfoEl) {
-        userInfoEl.textContent = currentUser.name + ' (' + currentUser.role + ')';
-      }
-    });
-  </script>
 </body>
 </html>

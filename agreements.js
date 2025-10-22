@@ -42,7 +42,9 @@
     const id = select.value;
     const section = document.getElementById('agreement-section');
     if (!id) {
-      section.style.display = 'none';
+      if (section) {
+        section.classList.add('is-hidden');
+      }
       currentQuote = null;
       return;
     }
@@ -70,7 +72,9 @@
     text = text.replace(/__EXÁMENES__/g, examsList);
     // Show output
     document.getElementById('agreement-output').value = text;
-    section.style.display = '';
+    if (section) {
+      section.classList.remove('is-hidden');
+    }
     // Save agreement into quote (for record)
     quote.agreement = text;
     DataStore.setQuotes(quotes);
@@ -78,9 +82,30 @@
 
   function copyToClipboard() {
     const textarea = document.getElementById('agreement-output');
+    const text = textarea.value;
+    if (!text) {
+      UI.showWarning('No hay información para copiar');
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        UI.showSuccess('Convenio copiado al portapapeles');
+      }).catch(() => {
+        fallbackCopy(textarea);
+      });
+    } else {
+      fallbackCopy(textarea);
+    }
+  }
+
+  function fallbackCopy(textarea) {
     textarea.select();
-    document.execCommand('copy');
-    alert('Convenio copiado al portapapeles');
+    const ok = document.execCommand('copy');
+    if (ok) {
+      UI.showSuccess('Convenio copiado al portapapeles');
+    } else {
+      UI.showError('No se pudo copiar el convenio');
+    }
   }
 
   function downloadAgreement() {
@@ -95,6 +120,7 @@
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    UI.showSuccess('Archivo descargado');
   }
 
   function init() {

@@ -11,7 +11,7 @@
   // Ensure user has access; dashboard can be viewed by all roles
   document.addEventListener('DOMContentLoaded', function() {
     // if no user, will redirect
-    checkRole(['seller', 'admin', 'control']);
+    if (!checkRole(['seller', 'admin', 'control'])) return;
     init();
   });
 

@@ -5,27 +5,28 @@
   <title>SSO CRM – Inicio de sesión</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="login-page">
+<body class="login-page" data-page="login">
   <div class="login-container">
     <img src="img/logo.png" alt="Metrored logo" class="login-logo">
-    <h1>Bienvenido al CRM de Ventas SSO</h1>
-    <p>Ingrese sus credenciales para comenzar</p>
+    <h1>Acceso al CRM de ventas</h1>
+    <p>Ingrese sus credenciales corporativas para continuar con su gestión comercial.</p>
     <form id="login-form" class="login-form">
-      <label for="user-name">Nombre de usuario:</label>
-      <input type="text" id="user-name" placeholder="Ingrese su nombre" required>
-      <label for="user-password">Contraseña:</label>
-      <input type="password" id="user-password" placeholder="Ingrese su contraseña" required>
-      <label for="user-role">Seleccione rol:</label>
+      <label for="user-name">Nombre de usuario</label>
+      <input type="text" id="user-name" placeholder="nombre.apellido" required>
+      <label for="user-password">Contraseña</label>
+      <input type="password" id="user-password" placeholder="Contraseña" required>
+      <label for="user-role">Rol asignado</label>
       <select id="user-role">
         <option value="seller">Vendedor</option>
         <option value="admin">Administrador</option>
         <option value="control">Control</option>
       </select>
-      <button type="submit" class="btn-primary" style="width:100%; margin-top:10px;">Ingresar</button>
+      <button type="submit" class="btn-primary">Ingresar</button>
     </form>
   </div>
   <script src="tariff.js"></script>
   <script src="data.js"></script>
+  <script src="util.js"></script>
   <script>
     const loginForm = document.getElementById('login-form');
     loginForm.addEventListener('submit', function (evt) {
@@ -34,20 +35,21 @@
       const password = document.getElementById('user-password').value;
       const role = document.getElementById('user-role').value;
       if (!name || !password) {
-        alert('Por favor ingrese su nombre y contraseña');
+        UI.showError('Por favor ingrese su nombre y contraseña');
         return;
       }
       const user = DataStore.authenticateUser(name, password);
       if (!user) {
-        alert('Credenciales inválidas');
+        UI.showError('Credenciales inválidas');
         return;
       }
       if (user.role !== role) {
-        alert('El rol seleccionado no coincide con sus credenciales');
+        UI.showWarning('El rol seleccionado no coincide con sus credenciales');
         return;
       }
       // Save current user without password
       DataStore.setCurrentUser({ name: user.name, role: user.role });
+      UI.showSuccess('Inicio de sesión exitoso');
       // Redirect based on role
       if (user.role === 'admin') {
         window.location.href = 'admin.html';

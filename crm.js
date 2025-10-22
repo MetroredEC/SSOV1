@@ -64,7 +64,7 @@
     const phone = document.getElementById('leadPhone').value.trim();
     const stage = document.getElementById('leadStage').value;
     if (!name) {
-      alert('Ingrese un nombre para el lead');
+      UI.showError('Ingrese un nombre para el lead');
       return;
     }
     const leads = DataStore.getLeads();
@@ -74,12 +74,13 @@
     document.getElementById('lead-form').reset();
     renderLeads();
     renderLeadOptions();
+    UI.showSuccess('Lead agregado');
   };
   // Delete a lead by index
   window.deleteLead = function(idx) {
     const leads = DataStore.getLeads();
     const lead = leads[idx];
-    if (!confirm('¿Está seguro de eliminar este lead?')) return;
+    if (!UI.confirm('¿Está seguro de eliminar este lead?')) return;
     leads.splice(idx, 1);
     DataStore.setLeads(leads);
     // Remove tasks associated with this lead
@@ -89,6 +90,7 @@
     renderLeads();
     renderLeadOptions();
     renderTasks();
+    UI.showSuccess('Lead eliminado');
   };
   // Render tasks list
   function renderTasks() {
@@ -123,7 +125,7 @@
     const leadId = leadSelect.value;
     const due = document.getElementById('taskDue').value;
     if (!desc || !leadId) {
-      alert('Ingrese descripción y seleccione un lead');
+      UI.showError('Ingrese descripción y seleccione un lead');
       return;
     }
     const tasks = DataStore.getTasks();
@@ -131,6 +133,7 @@
     DataStore.setTasks(tasks);
     document.getElementById('task-form').reset();
     renderTasks();
+    UI.showSuccess('Tarea agregada');
   };
   // Mark task done
   window.markTaskDone = function(idx) {
@@ -139,15 +142,17 @@
       tasks[idx].status = 'done';
       DataStore.setTasks(tasks);
       renderTasks();
+      UI.showSuccess('Tarea completada');
     }
   };
   // Delete task
   window.deleteTask = function(idx) {
-    if (!confirm('¿Eliminar esta tarea?')) return;
+    if (!UI.confirm('¿Eliminar esta tarea?')) return;
     const tasks = DataStore.getTasks();
     tasks.splice(idx, 1);
     DataStore.setTasks(tasks);
     renderTasks();
+    UI.showSuccess('Tarea eliminada');
   };
 
   function init() {
